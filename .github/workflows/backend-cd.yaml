@@ -9,9 +9,9 @@ on:
 
 env:
   PYTHON_VERSION: 3.12
-  IMAGE_NAME: mp-frontend
+  IMAGE_NAME: backend
   IMAGE_TAG: latest
-  BACKEND_ECR: 670590599691.dkr.ecr.us-east-1.amazonaws.com/backend
+  BACKEND_ECR: 670590599691.dkr.ecr.us-east-1.amazonaws.com
   AWS_REGION: us-east-1
 jobs:
   lint:
@@ -89,6 +89,7 @@ jobs:
         run: |
           aws eks update-kubeconfig --name cluster --region ${{ env.AWS_REGION }}
           docker build -t ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
+          docker image ls
           docker tag ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} ${{ env.BACKEND_ECR }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           docker push ${{ env.BACKEND_ECR }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
 

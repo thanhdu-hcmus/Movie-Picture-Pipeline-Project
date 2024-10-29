@@ -8,10 +8,10 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_VERSION: 18
-  IMAGE_NAME: mp-frontend
+  NODE_VERSION: 18.18.0
+  IMAGE_NAME: frontend
   IMAGE_TAG: latest
-  FRONTEND_ECR: 670590599691.dkr.ecr.us-east-1.amazonaws.com/frontend
+  FRONTEND_ECR: 670590599691.dkr.ecr.us-east-1.amazonaws.com
 
 
 jobs:
@@ -46,7 +46,7 @@ jobs:
         run: npm run lint
 
   test:
-    name: TEST JOB
+    name: Run tests
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -67,13 +67,15 @@ jobs:
           key: npm-cache-${{ hashFiles('**/package-lock.json') }}
 
       - name: Install dependencies
-        run: npm ci
+        run: | 
+          npm ci
+          npm install prettier --save-dev
 
       - name: Run tests
-        run: npm run test
+        run: CI=true npm test
 
   build:
-    name: BUILD JOB
+    name: Build and Deploy
     needs: [lint, test]
     runs-on: ubuntu-latest
     defaults:
