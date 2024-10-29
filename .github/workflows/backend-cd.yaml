@@ -99,3 +99,5 @@ jobs:
           cd k8s
           kustomize edit set image backend=${{ env.BACKEND_ECR }}/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
           kustomize build | kubectl apply -f -
+          kubectl get svc
+          kubectl get deployment
