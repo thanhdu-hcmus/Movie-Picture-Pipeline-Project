@@ -12,7 +12,7 @@ env:
   NODE_VERSION: 18
   IMAGE_NAME: frontend
   IMAGE_TAG: latest
-  FRONTEND_ECR: 670590599691.dkr.ecr.us-east-1.amazonaws.com
+  FRONTEND_ECR: 468154422986.dkr.ecr.us-east-1.amazonaws.com
   AWS_REGION: us-east-1
 
 jobs:
